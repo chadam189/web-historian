@@ -4,6 +4,8 @@ var archive = require('../helpers/archive-helpers');
 var httpHelpers = require('./http-helpers.js');
 var path = require('path');
 var url = require('path');
+
+
 exports.handleRequest = function (req, res) {
   //res.end(archive.paths.siteAssets + '/index.html');
   var urlPath = url.parse(req.url);
