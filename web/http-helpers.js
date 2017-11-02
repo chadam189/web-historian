@@ -10,10 +10,24 @@ exports.headers = {
   'Content-Type': 'text/html'
 };
 
-exports.serveAssets = function(res, asset, callback) {
+exports.serveAssets = function(response, asset, callback) {
   // Write some code here that helps serve up your static files!
   // (Static files are things like html (yours or archived from others...),
   // css, or anything that doesn't change often.)
+  
+  // make a 'GET' handle request
+  fs.readFile(asset, 'utf8', function (err, data) {
+    if (err) {
+      throw err; 
+    } 
+    response.writeHead(200, exports.headers);
+    // Second arg gets called after write() is finished
+    // Fixes: error write after end
+    response.write(data, function(err) { 
+      response.end(); 
+    });
+  });
+  
 };
 
 
