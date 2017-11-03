@@ -21,18 +21,3 @@ if (module.parent) {
   console.log('Listening on http://' + ip + ':' + port);
 }
 
-// serve up the static files
-
-// fs.readFile(archive.paths.siteAssets + '/index.html', 'utf8', function (err, data) {
-//   if (err) {
-//     throw err; 
-//   } 
-//   response.writeHead(200, headers);
-//   response.write(data);
-//   response.end();
-// });
-
-
-
-// if url is our main paige
-// serve up the static index.html using fs.readFile

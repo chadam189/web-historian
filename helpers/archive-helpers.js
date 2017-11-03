@@ -41,18 +41,9 @@ exports.readListOfUrls = function(callback) {
 };
 
 exports.isUrlInList = function(url, callback) {
-  // exports.readListOfUrls(function (data) {
-  //   var list = data;
-  //   var bool = list.includes(url);
-  //   callback(bool);
-  // });
-  
   exports.readListOfUrls( (data) => {
     callback(data.includes(url));
   });
-  
-  // exports.readListOfUrls( (data) => callback(data.includes(url)) );
-  
 };
 
 exports.addUrlToList = function(url, callback) {
@@ -69,53 +60,36 @@ exports.addUrlToList = function(url, callback) {
           });
         }
       });
-        // exports.isURLArchived(?)
-          // if this is false too, then do the fs.appendFile
-        
     }
   });
 };
 
 exports.isUrlArchived = function(url, callback) {
-
   exports.readArchivesDir(function (files) {
     callback(files.includes(url));
   });
 };
 
 exports.downloadUrls = function(urls) {
-  // read dir
-  // exports.readListOfUrls(function (list) {
-  //   // re-write sites.txt to show no more urls to download (since they've all been added to the queue)
-  //   fs.writeFile(exports.paths.list, '', function (err) {
-  //     if (err) {
-  //       throw err;
-  //     }
-  //     console.log('The urls have all been scheduled for download!');
-  //   });
   for (let i = 0; i < urls.length; i++) {
-    console.log('this loop has been called for the ', i + 1, '/', urls.length, ' time');
-    console.log('fetchHTML will be called with this url: ', urls[i]);
     // wait for fetchHTML to complete
     let tempURL = urls[i];
     fetch.fetchHTML(tempURL, function (data) {
       // once complete, save files from fetchHTML into the dir
-      console.log('fetchHTML is writing here: ', exports.paths.archivedSites + '/' + tempURL);
-      fs.writeFile(exports.paths.archivedSites + '/' + tempURL, data, function (err) { 
-        if (err) {
-          throw err;
-        }
-        console.log('This url (', tempURL, ') has been archived!');
-      });
+      // console.log('fetchHTML is writing here: ', exports.paths.archivedSites + '/' + tempURL);
+      let filePath = '' + exports.paths.archivedSites + '/' + tempURL;
+      console.log('file path = ', filePath);
+      // fs.writeFile(filePath, data, function (err) { 
+      //   if (err) {
+      //     throw err;
+      //   }
+      //   console.log('This url (', tempURL, ') has been archived!');
+      // });
     }); 
   }
-  // });
-  
 };
 
 exports.readArchivesDir = function (callback) {
-  // read the directory
-  // return the array of files in the dir into the callback
   fs.readdir(exports.paths.archivedSites, function (err, files) {
     if (err) {
       callback(err);
